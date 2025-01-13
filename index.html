@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Document</title>
+    <style>
+        body{
+    text-align: center;
+    }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>abc_game</h1>
+    </header>
+    <section id="section">
+        <button id="me_a">a</button>
+        <button id="me_b">b</button>
+        <button id="me_c">c</button>
+        <section id="me">
+            <h2>a->b<br>b->c<br>c->a</h2>
+            <h3 id="me_en">me:</h3>
+        </section>
+        <section id="op">
+            <h3 id="op_en">opp:</h3>
+        </section>
+        <h1 id="winner">winner:</h1>
+        <p id="point">me= , opp= </p>
+    </section>
+    <script>
+let me_point = 0
+let op_point = 0
+const game_system ={
+    decision:function(me_en,op_en){
+        if(me_en == op_en){
+            return "oe"
+        }
+        if(me_en == "a"){
+            if(op_en == "b"){
+                return "me"
+            }
+            if(op_en =="c"){
+                return "op"
+            }
+        }
+        if(me_en == "b"){
+            if(op_en == "a"){
+                return "op"
+            }
+            if(op_en =="c"){
+                return "me"
+            }
+        }
+        if(me_en == "c"){
+            if(op_en == "a"){
+                return "me"
+            }
+            if(op_en =="b"){
+                return "op"
+            }
+        }
+    },
+    random_abc:function(){
+        let random_me = Math.floor(Math.random() * 3+1)
+        if(random_me == 1){
+            return "a"
+        }
+        if(random_me == 2){
+            return "b"
+        }
+        if(random_me == 3){
+            return "c"
+        }
+    },
+    result:function(me){
+        let ran = game_system.random_abc()
+        document.getElementById("op_en").textContent = "opp:"+ran
+        document.getElementById("me_en").textContent = "me:"+me
+        if(game_system.decision(me,ran) == "oe"){
+            document.getElementById("winner").textContent = "winner:"
+        }
+        if(game_system.decision(me,ran) == "op"){
+            document.getElementById("winner").textContent = "winner:opp"
+            op_point += 1
+        }
+        if(game_system.decision(me,ran) == "me"){
+            document.getElementById("winner").textContent = "winner:me"
+            me_point += 1
+        }
+        document.getElementById("point").textContent = "me="+me_point+", opp=" +op_point
+    }
+    
+}
+const game = game_system
+document.getElementById("me_a").addEventListener('click',function(){game.result("a")})
+document.getElementById("me_b").addEventListener('click',function(){game.result("b")})
+document.getElementById("me_c").addEventListener('click',function(){game.result("c")})
+    </script>
+</body>
+</html>
